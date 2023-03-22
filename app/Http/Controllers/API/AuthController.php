@@ -23,21 +23,52 @@ class AuthController extends Controller
             return response()->json([
                 'validation_errors' => $validator->messages()->all()
             ], 422);
-        }
-         else {
+        } else {
             $user = User::create([
                 'name'  => $request->name,
                 'email' => $request->email,
-                'password' =>Hash::make($request->password),
+                'password' => Hash::make($request->password),
             ]);
 
             $token = $user->createToken($user->email . '_Token')->plainTextToken;
             return response()->json([
                 'status' => 200,
                 'username' => $user->name,
-                'token' =>$token,
+                'token' => $token,
                 'message' => 'Registered successfully',
             ]);
         }
+    }
+
+
+    public function login(request $request)
+    {
+        $validator = validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()->all()
+            ], 422);
+        } else {
+            $user = User::where('email', $request->email)->first();
+            if ($user || !Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'status' => 401,
+                    'message' => 'Invalid Credentials',
+                ]);
+            } else {
+                $token = $user->createToken($user->email . '_Token')->plainTextToken;
+
+                return response()->json([
+                    'status' => 200,
+                    'username' => $user->name,
+                    'token' => $token,
+                    'message' => 'logged in successfully',
+                ]);
+            }
+        };
     }
 }
