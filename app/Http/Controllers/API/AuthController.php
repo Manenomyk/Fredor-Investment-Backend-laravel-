@@ -54,7 +54,7 @@ class AuthController extends Controller
             ], 422);
         } else {
             $user = User::where('email', $request->email)->first();
-            if ($user || !Hash::check($request->password, $user->password)) {
+            if (! $user || ! Hash::check($request->password, $user->password)) {
                 return response()->json([
                     'status' => 401,
                     'message' => 'Invalid Credentials',
