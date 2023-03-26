@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('itemlist', function (Blueprint $table) {
             $table->id();
-            
+            $table->string('description');
+            $table->double('b_price');
+            $table->double('s_price');
             $table->timestamps();
         });
     }
