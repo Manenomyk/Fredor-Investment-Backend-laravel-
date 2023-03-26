@@ -22,6 +22,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::post('authadditem', [itemlistcontroller::class, 'store']);
 Route::post('createuser', [AuthController::class, 'store']);
+// Route::post('createuser', [customerlistcontoller::class, 'store']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
 
