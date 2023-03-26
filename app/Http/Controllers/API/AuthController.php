@@ -80,4 +80,37 @@ class AuthController extends Controller
             'massage' =>'Logged out successfully',
         ]);
     }
+
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'=>'required',
+            'email'=>'required|email',
+            'phone_number'=> 'required',
+            'id_number' => 'required',
+            'location' => 'required',
+            'designition' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->messages()->all(),
+            ], 422);
+        }else {
+            $users= new user;
+            $users -> name = $request->input('name');
+            $users -> email = $request->input('email');
+            $users -> phone_number = $request->input('phone_number');
+            $users -> id_number = $request->input('id_number');
+            $users -> location = $request->input('location');
+            $users -> roles = $request->input('designition');
+            $users->save();
+            return response([
+                'status' => 200,
+                'message' => 'New user created successfully',
+            ]);
+
+        }
+    }
 }
