@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('customerlist', function (Blueprint $table) {
             $table->id();
+            $table->string('plate_name');
+            $table->string('plate_code');
+            $table->string('driver');
+            $table->integer('id_no');
+            $table->integer('phone');
+            $table->string('company');
             $table->timestamps();
         });
     }
