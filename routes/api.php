@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\itemlistcontroller;
+use App\Http\Controllers\API\customerlistcontoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::post('authadditem', [itemlistcontroller::class, 'store']);
 Route::post('createuser', [AuthController::class, 'store']);
-// Route::post('createuser', [customerlistcontoller::class, 'store']);
+Route::post('addcustomer', [customerlistcontoller::class, 'store']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
 

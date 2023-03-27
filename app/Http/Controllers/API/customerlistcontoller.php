@@ -11,8 +11,7 @@ class customerlistcontoller extends Controller
 {
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'plate_name' => 'required',
+        $validator = Validator::make($request->all(), [            'plate_name' => 'required',
             'plate_code' => 'required',
             'driver' => 'required',
             'id_no' => 'required',
