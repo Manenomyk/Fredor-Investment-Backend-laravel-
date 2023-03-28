@@ -25,6 +25,8 @@ Route::post('authadditem', [itemlistcontroller::class, 'store']);
 Route::post('createuser', [AuthController::class, 'store']);
 Route::post('addcustomer', [customerlistcontoller::class, 'store']);
 
+Route::get('adminViewUsers', [AuthController::class, 'index']);
+
 Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('logout', [AuthController::class, 'logout']);
