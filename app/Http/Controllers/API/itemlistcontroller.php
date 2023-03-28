@@ -36,4 +36,13 @@ class itemlistcontroller extends Controller
             ]);
         }
     }
+    public function index()
+    {
+        $items = itemlist::all();
+        return response()->json([
+            'status' => 200,
+            'viewitems'=>$items,
+        ]);
+
+    }
 }

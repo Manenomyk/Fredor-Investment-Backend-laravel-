@@ -26,6 +26,8 @@ Route::post('createuser', [AuthController::class, 'store']);
 Route::post('addcustomer', [customerlistcontoller::class, 'store']);
 
 Route::get('adminViewUsers', [AuthController::class, 'index']);
+Route::get('adminViewitems', [itemlistcontroller::class, 'index']);
+
 
 Route::middleware(['auth:sanctum'])->group(function(){
 
