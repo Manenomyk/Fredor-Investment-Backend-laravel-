@@ -38,5 +38,14 @@ class customerlistcontoller extends Controller
             ]); 
         }
     }
+    public function index()
+    {
+        $customerlist = customerlist::all();
+        return response()->json([
+            'status' => 200,
+            'viewcustomerlist'=>$customerlist,
+        ]);
+
+    }
 
 }
