@@ -124,4 +124,21 @@ class AuthController extends Controller
         ]);
 
     }
+
+    public function edit($id){
+        $profile = user::find($id);
+        if($profile){
+            return response()->json([
+                'status'=>200,
+                'profile'=> $profile,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=> 'User not found',
+            ]);
+        }
+    }
 }
