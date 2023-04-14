@@ -50,8 +50,8 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'errors' => $validator->messages()->all()
-            ], 422);
+                'errors' => $validator->messages()
+            ]);
         } else {
             $user = User::where('email', $request->email)->first();
             if (! $user || ! Hash::check($request->password, $user->password)) {
