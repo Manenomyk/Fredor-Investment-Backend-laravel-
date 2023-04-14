@@ -104,7 +104,7 @@ class AuthController extends Controller
             $users -> phone_number = $request->input('phone_number');
             $users -> id_number = $request->input('id_number');
             $users -> location = $request->input('location');
-            $users -> roles = $request->input('designition');
+            $users -> designition = $request->input('designition');
             $users -> password = Hash::make($request->input('id_number'));
             $users->save();
             return response([
