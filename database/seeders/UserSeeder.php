@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -12,6 +14,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        User::create([
+            'name'=>'Admin',
+            'email'=>'admin@fredor.com',
+            'phone_number'=>123456789,
+            'id_number'=>12345678,
+            'location'=>'Voi',
+            'designition'=>3,
+            'password'=>Hash::make('fredorinvestments')
+        ]);
     }
 }
