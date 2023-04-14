@@ -17,11 +17,12 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'Admin',
             'email'=>'admin@fredor.com',
-            'phone_number'=>123456789,
-            'id_number'=>12345678,
-            'location'=>'Voi',
-            'designition'=>3,
-            'password'=>Hash::make('fredorinvestments')
+            'password'=>Hash::make('fredorinvestments'),
+            // 'phone_number'=>123456789,
+            // 'id_number'=>12345678,
+            // 'location'=>'Voi',
+            // 'designition'=>3,
+            
         ]);
     }
 }
