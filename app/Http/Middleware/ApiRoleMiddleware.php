@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiRoleMiddleware
@@ -15,6 +16,16 @@ class ApiRoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (Auth::check()) {
+            if (condition) {
+                # code...
+            }
+        }else {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Unauthorized user',
+            ]);
+        }
+        // return $next($request);
     }
 }
