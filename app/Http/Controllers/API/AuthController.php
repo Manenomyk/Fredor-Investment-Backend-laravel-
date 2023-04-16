@@ -62,13 +62,13 @@ class AuthController extends Controller
             } else {
                 if ($user->designation == 1) {
                     $role= 'clerk';
-                    $token = $user->createToken($user->email . '_ClerkToken')->plainTextToken;
+                    $token = $user->createToken($user->email . '_ClerkToken' ['server:clerk'],)->plainTextToken;
                 }else if ($user->designation == 2) {
                     $role= 'autho';
-                    $token = $user->createToken($user->email . '_authoToken')->plainTextToken;
+                    $token = $user->createToken($user->email . '_authoToken',['server:autho'])->plainTextToken;
                 }else{
                     $role= 'admin';
-                    $token = $user->createToken($user->email . '_adminToken')->plainTextToken;
+                    $token = $user->createToken($user->email . '_adminToken', ['server:admin'])->plainTextToken;
                 }
                 // $token = $user->createToken($user->email . '_Token')->plainTextToken;
 
