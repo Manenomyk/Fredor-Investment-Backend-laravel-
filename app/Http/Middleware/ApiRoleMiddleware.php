@@ -16,16 +16,7 @@ class ApiRoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            if (condition) {
-                # code...
-            }
-        }else {
-            return response()->json([
-                'status' => 401,
-                'message' => 'Unauthorized user',
-            ]);
-        }
-        // return $next($request);
+       
+        return $next($request);
     }
 }
