@@ -33,7 +33,7 @@ Route::get('adminViewcustomerlist', [customerlistcontoller::class, 'index']);
 
 
 Route::get('view_profile/{id}', [AuthController::class, 'edit']);
-
+Route::put('updateprofile/{id}', [AuthController::class, 'update']);
 
 
 Route::middleware(['auth:sanctum'])->group(function(){

@@ -54,20 +54,20 @@ class AuthController extends Controller
             ]);
         } else {
             $user = User::where('email', $request->email)->first();
-            if (! $user || ! Hash::check($request->password, $user->password)) {
+            if (!$user || !Hash::check($request->password, $user->password)) {
                 return response()->json([
                     'status' => 401,
                     'message' => 'Invalid Credentials',
                 ]);
             } else {
                 if ($user->designation == 1) {
-                    $role= 'clerk';
-                    $token = $user->createToken($user->email . '_ClerkToken' ['server:clerk'],)->plainTextToken;
-                }else if ($user->designation == 2) {
-                    $role= 'autho';
-                    $token = $user->createToken($user->email . '_authoToken',['server:autho'])->plainTextToken;
-                }else{
-                    $role= 'admin';
+                    $role = 'clerk';
+                    $token = $user->createToken($user->email . '_ClerkToken'['server:clerk'],)->plainTextToken;
+                } else if ($user->designation == 2) {
+                    $role = 'autho';
+                    $token = $user->createToken($user->email . '_authoToken', ['server:autho'])->plainTextToken;
+                } else {
+                    $role = 'admin';
                     $token = $user->createToken($user->email . '_adminToken', ['server:admin'])->plainTextToken;
                 }
                 // $token = $user->createToken($user->email . '_Token')->plainTextToken;
@@ -88,8 +88,8 @@ class AuthController extends Controller
     {
         $request->user()->tokens()->delete();
         return response()->json([
-            'status'=>200,
-            'massage' =>'Logged out successfully',
+            'status' => 200,
+            'massage' => 'Logged out successfully',
         ]);
     }
 
@@ -97,9 +97,9 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'=>'required',
-            'email'=>'required|email',
-            'phone_number'=> 'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required',
             'id_number' => 'required',
             'location' => 'required',
             'designition' => 'required',
@@ -109,21 +109,20 @@ class AuthController extends Controller
             return response()->json([
                 'validation_errors' => $validator->messages()->all(),
             ], 422);
-        }else {
-            $users= new user;
-            $users -> name = $request->input('name');
-            $users -> email = $request->input('email');
-            $users -> phone_number = $request->input('phone_number');
-            $users -> id_number = $request->input('id_number');
-            $users -> location = $request->input('location');
-            $users -> designition = $request->input('designition');
-            $users -> password = Hash::make($request->input('id_number'));
+        } else {
+            $users = new user;
+            $users->name = $request->input('name');
+            $users->email = $request->input('email');
+            $users->phone_number = $request->input('phone_number');
+            $users->id_number = $request->input('id_number');
+            $users->location = $request->input('location');
+            $users->designition = $request->input('designition');
+            $users->password = Hash::make($request->input('id_number'));
             $users->save();
             return response([
                 'status' => 200,
                 'message' => 'New user created successfully',
             ]);
-
         }
     }
 
@@ -132,25 +131,61 @@ class AuthController extends Controller
         $users = user::all();
         return response()->json([
             'status' => 200,
-            'viewusers'=>$users,
+            'viewusers' => $users,
         ]);
-
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $profile = user::find($id);
-        if($profile){
+        if ($profile) {
             return response()->json([
-                'status'=>200,
-                'profile'=> $profile,
+                'status' => 200,
+                'profile' => $profile,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'User not found',
             ]);
         }
-        else
-        {
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required',
+            'id_number' => 'required',
+            'location' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
             return response()->json([
-                'status'=>404,
-                'message'=> 'User not found',
-            ]);
+                'validation_errors' => $validator->messages()->all(),
+            ], 422);
+        } else {
+            $users = user::find($id);
+            if ($users) {
+                $users->name = $request->input('name');
+                $users->email = $request->input('email');
+                $users->phone_number = $request->input('phone_number');
+                $users->id_number = $request->input('id_number');
+                $users->location = $request->input('location');
+
+                $users->save();
+                return response([
+                    'status' => 200,
+                    'message' => 'Profile updated successfully',
+                ]);
+            } else {
+                return response([
+                    'status' => 404,
+                    'message' => 'User ID not found',
+                ]);
+            }
         }
     }
 }
