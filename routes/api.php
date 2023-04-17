@@ -32,7 +32,7 @@ Route::get('adminViewitems', [itemlistcontroller::class, 'index']);
 Route::get('adminViewcustomerlist', [customerlistcontoller::class, 'index']);
 
 
-Route::get('profileupdate/{id}', [AuthController::class, 'edit']);
+Route::get('view_profile/{id}', [AuthController::class, 'edit']);
 
 
 
