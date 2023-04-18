@@ -60,25 +60,26 @@ class AuthController extends Controller
                     'message' => 'Invalid Credentials',
                 ]);
             } else {
-                if ($user->designation == 1) {
-                    $role = 'clerk';
-                    $token = $user->createToken($user->email . '_ClerkToken'['server:clerk'],)->plainTextToken;
-                } else if ($user->designation == 2) {
-                    $role = 'autho';
-                    $token = $user->createToken($user->email . '_authoToken', ['server:autho'])->plainTextToken;
-                } else {
-                    $role = 'admin';
-                    $token = $user->createToken($user->email . '_adminToken', ['server:admin'])->plainTextToken;
-                }
-                // $token = $user->createToken($user->email . '_Token')->plainTextToken;
+                // if ($user->designition == 1) {
+                //     $role = 'clerk';
+                //     $token = $user->createToken($user->email . '_ClerkToken'['server:clerk'],)->plainTextToken;
+                // } else if ($user->designition == 2) {
+                //     $role = 'autho';
+                //     $token = $user->createToken($user->email . '_authoToken', ['server:autho'])->plainTextToken;
+                // } else {
+                //     $role = 'admin';
+                //     $token = $user->createToken($user->email . '_adminToken', ['server:admin'])->plainTextToken;
+                // }
+                $token = $user->createToken($user->email . '_Token')->plainTextToken;
 
                 return response()->json([
                     'status' => 200,
                     'username' => $user->name,
                     'userID' => $user->id,
+                    'role' => $user->designition,
                     'token' => $token,
                     'message' => 'logged in successfully',
-                    'role' => $role,
+                    
                 ]);
             }
         };
